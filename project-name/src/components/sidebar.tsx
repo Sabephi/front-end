@@ -1,25 +1,28 @@
 import React, { ReactNode } from 'react';
+import CityList from './city-list.tsx';
+import { CityData } from './city-list-item.tsx';
 
-// 1. Definicja Propsów
-// Używamy typu ReactNode, aby komponent mógł przyjmować inną zawartość (inne komponenty, tekst, HTML)
 interface SidebarProps {
+  cities: CityData[];
+  onCitySelect: (id: number) => void;
   children: ReactNode;
 }
 
-/**
- * Komponent Sidebar
- * * Służy jako główny kontener dla lewego paska bocznego (nawigacji).
- * Wersja minimalistyczna używa elementu <aside> dla semantyki.
- */
-export const Sidebar = ({ children }: SidebarProps) => {
+export const Sidebar: React.FC<SidebarProps> = ({ children, cities, onCitySelect }) => { 
   return (
-    // Używamy <aside> zamiast <div> dla lepszej semantyki paska bocznego
-    // Nadajemy mu klasę dla łatwego stylowania
     <aside className="app-sidebar-container">
-      {/* 'children' jest tutaj renderowane, co oznacza, że 
-        cała zawartość umieszczona wewnątrz <Sidebar> w App.tsx pojawi się w tym miejscu.
-      */}
-      {children}
+      <div style={{ marginBottom: '20px' }}>
+        {children}
+      </div>
+      
+      <CityList 
+          cities={cities}
+          onCitySelect={onCitySelect}
+      />
+      
+      <button className="add-city-button">
+          Add City
+      </button>
     </aside>
   );
 };
