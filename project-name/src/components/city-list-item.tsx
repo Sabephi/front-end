@@ -28,8 +28,8 @@ const getWeatherIcon = (iconName: CityData['icon']) => {
 
 export const CityListItem: React.FC<CityListItemProps> = ({ city, onClick }) => {
   return (
-    <div onClick={() => onClick(city.id)}>
-      <div>{getWeatherIcon(city.icon)} {city.name} </div><div>{city.temp}°C</div>
+    <div className="city-list-item" onClick={() => onClick(city.id)}>
+      <div className="city-list-item-left">{getWeatherIcon(city.icon)} {city.name} </div><div className="city-list-item-right">{city.temp}°C</div>
     </div>
   );
 };

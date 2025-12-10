@@ -1,7 +1,13 @@
 import './App.css'
-import Sidebar from './components/sidebar.tsx';
-import { CityData } from './components/city-list-item.tsx';
 import React, { useState } from 'react';
+//komponenty główne 
+import Sidebar from './components/sidebar.tsx';
+import CurrentTimeDisplay from './components/current-time.tsx';
+import WeatherDashboard from './components/weather-card.tsx';
+import WeatherDetailCard from './components/weather-detail.tsx';
+// typy danych
+import { CityData } from './components/city-list-item.tsx';
+
 
 const initialCities: any[] = [ 
     { id: 1, name: 'Warsaw', temp: 18, icon: 'sun', isActive: true },
@@ -12,10 +18,10 @@ const initialCities: any[] = [
 ];
 
 
+
 function App() {
   const [cities, setCities] = useState<any[]>(initialCities);
 
-  // Funkcja do przełączania aktywnego miasta
   const handleCitySelect = (selectedId: number) => {
     const newCities = cities.map(city => ({
         ...city, 
@@ -23,7 +29,9 @@ function App() {
     }));
     setCities(newCities);
   };
-  
+
+  const activeCity = cities.find(c => c.isActive);
+
 return (
     <div className="main-layout"> 
       
@@ -37,12 +45,24 @@ return (
       </Sidebar>
       
       <main className="main-content">
-        <h1>Dashboard Pogody</h1>
-        <p>Aktualnie wybrane miasto: <b>{cities.find(c => c.isActive)?.name || 'Brak'}</b></p>
+        <h1 className="city-title">{cities.find(c => c.isActive)?.name || 'Brak'}</h1>
+        <p><CurrentTimeDisplay /></p>
+
+        {activeCity ? (<WeatherDashboard city={activeCity} />) : (
+                    <h1>Select a city from the side list to view the weather.</h1>
+                )}
+      <h2>Details</h2>
+        <div className="detail-cards-row">
+            <WeatherDetailCard label="FEELS LIKE" value={`17°C`} />
+            <WeatherDetailCard label="HUMIDITY" value={`65%`} />
+            <WeatherDetailCard label="WIND SPEED" value={`12 km/h`} />
+            <WeatherDetailCard label="PRESSURE" value={`1012 hPa`} />
+        </div>
       </main>
       
     </div>
-  );
+  );  
 }
+
 
 export default App
