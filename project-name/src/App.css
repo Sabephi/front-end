@@ -17,13 +17,22 @@ body, #root {
   border-right: 1px solid #e0e0e0; 
   padding: 20px;
   flex-shrink: 0; 
-  min-height: 700px;
+  max-height: 700px;
   display: flex;
   flex-direction: column;
   border-bottom-right-radius: 20px;
 }
+@media (max-width: 1200px) {
+    .app-sidebar-container {
+      width: 230px;
+    }
+}
+@media (max-width: 1000px) {
+    .app-sidebar-container {
+      width: 180px;
+    }
+}
 
-/*GŁÓWNA TREŚĆ*/
 .main-content {
   flex-grow: 1; 
   padding: 30px;
@@ -46,13 +55,13 @@ body, #root {
   margin: 0; 
   font-size: 16px;
 }
-/*LISTA MIAST*/
+
 .city-list-container {
   margin-bottom: 20px; 
   color: black;
 }
 
-/*ELEMENT LISTY */
+
 .city-item {
   padding: 10px 15px;
   margin-bottom: 8px;
@@ -67,7 +76,6 @@ body, #root {
   background-color: #e0e0e0; 
 }
 
-/* Aktywne miasto */
 .city-item-active {
   background-color: #007bff; 
   color: white; 
@@ -114,7 +122,7 @@ body, #root {
   cursor: pointer;
 }
 
-
+/*główna treść*/
 .weather-dashboard {
   display: flex;
   flex-direction: column;
@@ -139,17 +147,43 @@ body, #root {
 }
 
 .icon-large {
-    font-size: 70px;
+    font-size: 90px;
     margin-right: 20px;
     line-height: 1;
 }
+
 
 .temperature {
     font-size: 70px; 
     font-weight: 700;
     color: #333;
 }
+@media (max-width: 900px) {
+    .icon-large {
+        font-size: 40px;
+    }
+    .temperature{
+      font-size: 40px;
+    }
+}
 
+.sun{
+  color: #EAB308;
+}
+
+.rain{
+   color: #66A8FA;
+}
+.cloud{
+  color: #6C7280;
+}
+
+.partly_cloud{
+  color: #9FA6B1;
+}
+.pr{
+  padding-right: 5px;
+}
 .description-temp {
     font-size: 1.1em;
     color: #666;
@@ -168,13 +202,14 @@ body, #root {
     font-size: 0.9em;
     color: #999;
 }
-/*details*/
+/*detale*/
 .detail-cards-row {
     display: flex;
     margin: 0;
     gap: 10px;
-    justify-content: space-between;
+    justify-content: center;
     flex-wrap: wrap;
+    padding-bottom: 15px;
 }
 
 .detail-card {
@@ -206,4 +241,53 @@ body, #root {
     font-weight: bold;
     color: #333;
     margin: 0;
+}
+
+/*prognoza*/
+
+.forecast-list {
+    background-color: white;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    padding: 0 10px;
+}
+
+.forecast-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 10px;
+    border-bottom: 1px solid #eee; 
+}
+
+.forecast-row:last-child {
+    border-bottom: none;
+}
+
+.forecast-day {
+    flex-basis: 25%;
+    font-weight: 500;
+    color: #333;
+}
+
+.forecast-icon {
+    flex-basis: 15%;
+    font-size: 1.5em;
+    text-align: center;
+}
+
+.forecast-min-max {
+    flex-basis: 40%;
+    text-align: right;
+    color: #888;
+    font-weight: 500;
+    font-size: 0.95em;
+}
+
+
+.forecast-current-temp {
+    flex-basis: 20%;
+    text-align: right;
+    font-weight: bold;
+    color: #333;
 }

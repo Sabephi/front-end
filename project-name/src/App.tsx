@@ -5,6 +5,7 @@ import Sidebar from './components/sidebar.tsx';
 import CurrentTimeDisplay from './components/current-time.tsx';
 import WeatherDashboard from './components/weather-card.tsx';
 import WeatherDetailCard from './components/weather-detail.tsx';
+import WeatherForecast from './components/weather-forecast.tsx';
 // typy danych
 import { CityData } from './components/city-list-item.tsx';
 
@@ -58,6 +59,9 @@ return (
             <WeatherDetailCard label="WIND SPEED" value={`12 km/h`} />
             <WeatherDetailCard label="PRESSURE" value={`1012 hPa`} />
         </div>
+
+              <h3>5-Day Forecast</h3>
+        <WeatherForecast />
       </main>
       
     </div>

@@ -1,14 +1,16 @@
 import React from 'react';
 import { CityData } from './city-list-item.tsx';
 
-const getWeatherIcon = (iconName: 'sun' | 'cloud' | 'rain' | string) => {
+const getWeatherIcon = (iconName: string) => {
     switch (iconName) {
         case 'sun':
-            return '☀️';
+            return <span class="material-symbols-outlined text-text-light-secondary dark:text-text-dark-secondary text-2xl icon-large sun">light_mode</span>;
         case 'cloud':
-            return '☁️';
+            return <span class="material-symbols-outlined text-text-light-secondary dark:text-text-dark-secondary text-2xl icon-large cloud">cloud</span>;
         case 'rain':
-            return '🌧️';
+            return <span class="material-symbols-outlined text-text-light-secondary dark:text-text-dark-secondary text-2xl icon-large rain">rainy</span>;
+        case 'partly_cloud':
+            return <span class="material-symbols-outlined text-gray-400 text-2xl w-1/4 text-center icon-large partly_cloud">partly_cloudy_day</span>;
         default:
             return '❓';
     }
