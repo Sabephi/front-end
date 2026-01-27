@@ -1,61 +1,72 @@
 import React from 'react';
-import type { CityData } from './city-list-item.tsx'; 
+import { DailyForecast } from '../weatherApi.tsx';
 
-
-interface ForecastDay {
-    day: string; 
-    icon: CityData['icon']; 
-    lowTemp: number;
-    highTemp: number;
-    currentTemp: number;
+interface WeatherForecastProps {
+    forecast: DailyForecast[];
 }
 
-const dummyForecastData: ForecastDay[] = [
-    { day: "Tuesday", icon: 'rain', lowTemp: 15, highTemp: 20, currentTemp: 19 },
-    { day: "Wednesday", icon: 'cloud', lowTemp: 14, highTemp: 18, currentTemp: 17 },
-    { day: "Thursday", icon: 'sun', lowTemp: 16, highTemp: 23, currentTemp: 22 },
-    { day: "Friday", icon: 'sun', lowTemp: 17, highTemp: 24, currentTemp: 23 },
-    { day: "Saturday", icon: 'sun', lowTemp: 18, highTemp: 25, currentTemp: 24 },
-];
+const getWeatherIcon = (description: string) => {
+    const key = description ? description.toLowerCase().trim() : '';
+    const defaultClasses = "material-symbols-outlined text-text-light-secondary dark:text-text-dark-secondary text-2xl";
 
-const getWeatherIcon = (iconName: string) => {
-    switch (iconName) {
-        case 'sun':
-            return <span class="material-symbols-outlined text-text-light-secondary dark:text-text-dark-secondary text-2xl sun">light_mode</span>;
-        case 'cloud':
-            return <span class="material-symbols-outlined text-text-light-secondary dark:text-text-dark-secondary text-2xl cloud">cloud</span>;
+    switch (key) {
+        case 'clear':
+            return <span className={`${defaultClasses} sun`}>light_mode</span>;
+        case 'clouds':
+            return <span className={`${defaultClasses} cloud`}>cloud</span>;
         case 'rain':
-            return <span class="material-symbols-outlined text-text-light-secondary dark:text-text-dark-secondary text-2xl rain">rainy</span>;
-        case 'partly_cloud':
-            return <span class="material-symbols-outlined text-gray-400 text-2xl w-1/4 text-center partly_cloud">partly_cloudy_day</span>;
+        case 'drizzle':
+            return <span className={`${defaultClasses} rain`}>rainy</span>;
+        case 'thunderstorm':
+            return <span className={`${defaultClasses} thunderstorm`}>thunderstorm</span>;
+        case 'snow':
+            return <span className={`${defaultClasses} snow`}>ac_unit</span>;
+        case 'mist':
+        case 'fog':
+        case 'haze':
+            return <span className={`${defaultClasses} fog`}>foggy</span>;
         default:
-            return '❓';
+            return <span className={defaultClasses}>help</span>;
     }
 };
 
 
+const formatDayName = (timestamp: number) => {
+    const date = new Date(timestamp * 1000);
+    return date.toLocaleDateString('en-US', { weekday: 'long' });
+};
 
-const ForecastRow: React.FC<{ data: ForecastDay }> = ({ data }) => {
-    const iconEmoji = getWeatherIcon(data.icon);
-    
+const ForecastRow: React.FC<{ dayData: DailyForecast }> = ({ dayData }) => {
+    const icon = getWeatherIcon(dayData.description);
     return (
         <div className="forecast-row">
-            <span className="forecast-day">{data.day}</span>
-            <span className="forecast-icon">{iconEmoji}</span>
-            <span className="forecast-min-max">{data.lowTemp}° / {data.highTemp}°</span>
-            <span className="forecast-current-temp">{data.currentTemp}°C</span>
+            <span className="forecast-day">{formatDayName(dayData.date)}</span>
+            <span className="forecast-icon">{icon}</span>
+            
+            <div className="forecast-temp-range">
+                <span className="forecast-min">{Math.round(dayData.tempMin)}°</span>
+                <span className="forecast-divider">/</span>
+                <span className="forecast-max">{Math.round(dayData.tempMax)}°</span>
+            </div>
         </div>
     );
 };
 
-
-const WeatherForecast: React.FC = () => {
+const WeatherForecast: React.FC<WeatherForecastProps> = ({ forecast }) => {
+    console.log("Dane prognozy w komponencie:", forecast);
+    
+    if (!forecast || forecast.length === 0) {
+        return <div className="forecast-loading">Loading 5-day forecast...</div>;
+    }
     return (
+        <div className="forecast-container">
+            <h3 className="forecast-title">5-Day Forecast</h3>
             <div className="forecast-list">
-                {dummyForecastData.map((day, index) => (
-                    <ForecastRow key={index} data={day} />
+                {forecast.map((day, index) => (
+                    <ForecastRow key={index} dayData={day} />
                 ))}
             </div>
+        </div>
     );
 };
 

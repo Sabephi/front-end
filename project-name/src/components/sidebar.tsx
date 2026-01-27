@@ -6,11 +6,12 @@ interface SidebarProps {
   cities: CityData[];
   onCitySelect: (id: number) => void;
   children: ReactNode;
+  className?: string;
 }
 
-export const Sidebar: React.FC<SidebarProps> = ({ children, cities, onCitySelect }) => { 
+const Sidebar: React.FC<SidebarProps> = ({ cities, onCitySelect, children, className }) => {
   return (
-    <aside className="app-sidebar-container">
+    <aside className={`app-sidebar-container ${className}`}>
       <div style={{ marginBottom: '20px' }}>
         {children}
       </div>

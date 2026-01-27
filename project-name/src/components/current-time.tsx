@@ -11,12 +11,9 @@ export const CurrentTimeDisplay: React.FC = () => {
 
     const displayCurrentTime = () => {
         const now = new Date();
-        
         const dayName = getDayName(now.getDay());
-
         const hours = now.getHours().toString().padStart(2, '0');
         const minutes = now.getMinutes().toString().padStart(2, '0');
-        
         const timeString = `${hours}:${minutes}`;
         const fullText = `${dayName}, ${timeString}`;
         

@@ -122,6 +122,62 @@ body, #root {
   cursor: pointer;
 }
 
+.menu-toggle-button {
+    display: none; 
+}
+
+
+@media (max-width: 800px) {
+    .main-layout {
+        position: relative; 
+    }
+    .menu-toggle-button {
+        display: block; 
+        position: fixed; 
+        top: 15px;
+        left: 15px;
+        z-index: 1001; 
+        background: #007bff;
+        color: white;
+        border: none;
+        padding: 10px 15px;
+        font-size: 1.2em;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    .app-sidebar-container {
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 100vh;
+        z-index: 1000;
+        transform: translateX(-100%); 
+        transition: transform 0.2s ease-in-out;
+        box-shadow: none;
+    }
+    
+    .title
+    {
+      padding-top: 40px;
+    }
+    .city-title{
+      padding-top: 20px;
+    }
+    .app-sidebar-container.sidebar--open {
+        transform: translateX(0); 
+        box-shadow: 2px 0 10px rgba(0, 0, 0, 0.2);
+        width: calc(100% - 40px);
+        border-bottom-right-radius: 0px;
+    }
+
+    .main-content {
+        width: 100%;
+        margin-left: 0;
+        padding-top: 60px;
+    }
+}
+
 /*główna treść*/
 .weather-dashboard {
   display: flex;
@@ -268,12 +324,17 @@ body, #root {
     flex-basis: 25%;
     font-weight: 500;
     color: #333;
+    min-width: 100px;
+    text-align: left;
 }
 
 .forecast-icon {
     flex-basis: 15%;
     font-size: 1.5em;
     text-align: center;
+    display: flex;
+    justify-content: center;
+    flex: 1;
 }
 
 .forecast-min-max {
@@ -290,4 +351,11 @@ body, #root {
     text-align: right;
     font-weight: bold;
     color: #333;
+}
+
+.forecast-temp-range {
+    min-width: 80px;
+    text-align: right;
+    display: flex;
+    gap: 5px;
 }
