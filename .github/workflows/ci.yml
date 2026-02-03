@@ -9,6 +9,10 @@ on:
 jobs:
   build-and-lint:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./project-name
+
     steps:
       - uses: actions/checkout@v4
       
@@ -21,7 +25,7 @@ jobs:
         run: npm install
         
       - name: Run Lint
-        run: npm run lint || echo "Linting skipped or not configured"
+        run: npm run lint || echo "Linting skipped"
 
       - name: Verify Build
         run: npm run build
