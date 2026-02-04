@@ -20,6 +20,7 @@ interface CityDataWithAPI extends WeatherData {
     isActive: boolean;
 }
 
+
 function App() {
     const [cities, setCities] = useState<CityDataWithAPI[]>([]);
     const [isLoading, setIsLoading] = useState(true);
